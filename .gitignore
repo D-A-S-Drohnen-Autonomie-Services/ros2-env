@@ -1,3 +1,6 @@
 tmp/
 examples/
 .idea/
+build/
+install/
+log/
