@@ -6,7 +6,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     nano vim \
     && rm -rf /var/lib/apt/lists/*
 
-USER ros
 RUN mkdir /tmp/bag
 WORKDIR /tmp/bag
 CMD ["ros2", "bag", "record", "/turtle1/cmd_vel"]
