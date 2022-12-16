@@ -1,0 +1,90 @@
+version: '3'
+
+services:
+  turtlesim-node:
+    image: das:ros2-turtlesim
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix"
+    environment:
+      DISPLAY: $DISPLAY
+      ROS_DOMAIN_ID: 50
+  rqt:
+    image: das:ros2-rqt
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix"
+    environment:
+      DISPLAY: $DISPLAY
+      ROS_DOMAIN_ID: 50
+  bag-record:
+    image: das:ros2-bag
+    volumes:
+      - "./tmp/bag/:/tmp/bag/"
+    environment:
+      DISPLAY: $DISPLAY
+      ROS_DOMAIN_ID: 50
+    depends_on:
+      - turtlesim-node
+  bag-play:
+    image: das:ros2-bag
+    volumes:
+      - "./tmp/bag/:/tmp/bag/"
+    environment:
+      DISPLAY: $DISPLAY
+      ROS_DOMAIN_ID: 50
+    profiles:
+      - donotstart
+    command:
+      - "/bin/bash"
+    depends_on:
+      - turtlesim-node
+  turtlesim-multisim-node:
+    image: das:ros2-turtlesim
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix"
+    environment:
+      DISPLAY: $DISPLAY
+      ROS_DOMAIN_ID: 50
+    command:
+      - "/bin/bash"
+#      - "ros2"
+#      - "run"
+#      - "turtlesim"
+#      - "multisim.launch.py"
+    profiles:
+      - donotstart
+  turtlesim-controller-node:
+    image: das:ros2-turtlesim
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix"
+    environment:
+      DISPLAY: $DISPLAY
+      ROS_DOMAIN_ID: 50
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    command:
+      - "ros2"
+      - "run"
+      - "turtlesim"
+      - "turtle_teleop_key"
+    profiles:
+      - donotstart
+  turtlesim-base:
+    image: das:ros2-turtlesim
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix"
+    environment:
+      DISPLAY: $DISPLAY
+      ROS_DOMAIN_ID: 50
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    command:
+      - "/bin/bash"
+    profiles:
+      - donotstart
+  ros2-base:
+    image: das:ros2-base
+    environment:
+      DISPLAY: $DISPLAY
+      ROS_DOMAIN_ID: 50
+    profiles:
+      - donotstart
