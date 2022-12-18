@@ -5,10 +5,13 @@ ENV ROS_DOMAIN_ID=50
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-colcon-common-extensions \
+    ros-humble-demo-nodes-cpp \
     nano vim \
     && rm -rf /var/lib/apt/lists/* \
+RUN echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
+RUN echo "export _colcon_cd_root=/opt/ros/humble/" >> ~/.bashrc \
+RUN echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/.bashrc
+RUN rosdep update
 
-RUN groupadd -g 1000 ros
-RUN useradd -d /home/ros -s /bin/bash -m ros -u 1000 -g 1000
-USER ros
-ENV HOME /home/ros
+RUN mkdir /home/root
+ENV HOME /home/root

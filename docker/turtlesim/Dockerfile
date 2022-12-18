@@ -5,6 +5,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     nano vim \
     && rm -rf /var/lib/apt/lists/*
 
-USER ros
 CMD ["ros2", "run", "turtlesim", "turtlesim_node"]
 # Command to run node to control turtlesim `ros2 run turtlesim turtle_teleop_key`
