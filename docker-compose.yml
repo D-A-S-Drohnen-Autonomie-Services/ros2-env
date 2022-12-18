@@ -12,9 +12,12 @@ services:
     image: das:ros2-rqt
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix"
+      - ".:/home/root/project"
     environment:
       DISPLAY: $DISPLAY
       ROS_DOMAIN_ID: 50
+    profiles:
+      - donotstart
   bag-record:
     image: das:ros2-bag
     volumes:
@@ -88,7 +91,7 @@ services:
       ROS_DOMAIN_ID: 50
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix"
-      - ".:/home/ros/project"
+      - ".:/home/root/project"
     command:
       - "/bin/bash"
     profiles:

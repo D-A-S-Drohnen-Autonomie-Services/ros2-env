@@ -1,4 +1,4 @@
-FROM das:ros2-turtlesim
+FROM das:ros2-base
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ~nros-humble-rqt* \
