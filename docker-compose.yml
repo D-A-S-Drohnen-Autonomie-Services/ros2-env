@@ -8,6 +8,8 @@ services:
     environment:
       DISPLAY: $DISPLAY
       ROS_DOMAIN_ID: 50
+    command:
+      - "/bin/bash"
   rqt:
     image: das:ros2-rqt
     volumes:
