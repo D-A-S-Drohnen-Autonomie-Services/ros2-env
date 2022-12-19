@@ -5,6 +5,7 @@ services:
     image: das:ros2-turtlesim
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix"
+      - ".:/home/root/project"
     environment:
       DISPLAY: $DISPLAY
       ROS_DOMAIN_ID: 50
