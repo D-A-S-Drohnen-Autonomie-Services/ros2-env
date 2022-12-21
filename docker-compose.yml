@@ -1,6 +1,18 @@
 version: '3'
 
 services:
+  camera-node:
+    image: das:ros2-perception
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix"
+      - ".:/home/root/project"
+    environment:
+      DISPLAY: $DISPLAY
+      ROS_DOMAIN_ID: 50
+    devices:
+      - "/dev/video0:/dev/video0"
+    profiles:
+      - donotstart
   rqt:
     image: das:ros2-rqt
     volumes:
@@ -43,3 +55,6 @@ services:
       - "/bin/bash"
     profiles:
       - donotstart
+    devices:
+      - "/dev/video0:/dev/video0"
+      - "/dev/video1:/dev/video1"

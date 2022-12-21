@@ -11,13 +11,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-tf2-tools \
     ros-humble-tf-transformations \
     ros-humble-rviz2  \
+    ros-humble-ros-testing  \
+    ros-humble-rttest  \
+    ros-humble-tlsf-cpp  \
     nano vim \
     && rm -rf /var/lib/apt/lists/* \
 RUN echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
 RUN echo "export _colcon_cd_root=/opt/ros/humble/" >> ~/.bashrc \
 RUN echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/.bashrc
-RUN rosdep update
 
 RUN mkdir /home/root
 ENV HOME /home/root
 WORKDIR /home/root/project
+RUN rosdep update
