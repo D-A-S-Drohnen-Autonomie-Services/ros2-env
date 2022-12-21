@@ -4,3 +4,5 @@ examples/
 build/
 install/
 log/
+frames*.pdf
+frames*.gv

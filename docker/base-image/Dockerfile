@@ -6,6 +6,11 @@ ENV ROS_DOMAIN_ID=50
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-colcon-common-extensions \
     ros-humble-demo-nodes-cpp \
+    ros-humble-composition \
+    ros-humble-turtle-tf2-py \
+    ros-humble-tf2-tools \
+    ros-humble-tf-transformations \
+    ros-humble-rviz2  \
     nano vim \
     && rm -rf /var/lib/apt/lists/* \
 RUN echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
@@ -15,3 +20,4 @@ RUN rosdep update
 
 RUN mkdir /home/root
 ENV HOME /home/root
+WORKDIR /home/root/project
