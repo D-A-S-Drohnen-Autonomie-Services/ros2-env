@@ -1,16 +1,18 @@
 version: '3'
 
 services:
-  turtlesim-node:
-    image: das:ros2-turtlesim
+  camera-node:
+    image: das:ros2-perception
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix"
       - ".:/home/root/project"
     environment:
       DISPLAY: $DISPLAY
       ROS_DOMAIN_ID: 50
-    command:
-      - "/bin/bash"
+    devices:
+      - "/dev/video0:/dev/video0"
+    profiles:
+      - donotstart
   rqt:
     image: das:ros2-rqt
     volumes:
@@ -22,16 +24,16 @@ services:
     profiles:
       - donotstart
   bag-record:
-    image: das:ros2-bag
+    image: das:ros2-base
     volumes:
       - "./tmp/bag/:/tmp/bag/"
     environment:
       DISPLAY: $DISPLAY
       ROS_DOMAIN_ID: 50
-    depends_on:
-      - turtlesim-node
+    profiles:
+      - donotstart
   bag-play:
-    image: das:ros2-bag
+    image: das:ros2-base
     volumes:
       - "./tmp/bag/:/tmp/bag/"
     environment:
@@ -41,52 +43,6 @@ services:
       - donotstart
     command:
       - "/bin/bash"
-    depends_on:
-      - turtlesim-node
-  turtlesim-multisim-node:
-    image: das:ros2-turtlesim
-    volumes:
-      - "/tmp/.X11-unix:/tmp/.X11-unix"
-    environment:
-      DISPLAY: $DISPLAY
-      ROS_DOMAIN_ID: 50
-    command:
-      - "/bin/bash"
-#      - "ros2"
-#      - "run"
-#      - "turtlesim"
-#      - "multisim.launch.py"
-    profiles:
-      - donotstart
-  turtlesim-controller-node:
-    image: das:ros2-turtlesim
-    volumes:
-      - "/tmp/.X11-unix:/tmp/.X11-unix"
-    environment:
-      DISPLAY: $DISPLAY
-      ROS_DOMAIN_ID: 50
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
-    command:
-      - "ros2"
-      - "run"
-      - "turtlesim"
-      - "turtle_teleop_key"
-    profiles:
-      - donotstart
-  turtlesim-base:
-    image: das:ros2-turtlesim
-    volumes:
-      - "/tmp/.X11-unix:/tmp/.X11-unix"
-    environment:
-      DISPLAY: $DISPLAY
-      ROS_DOMAIN_ID: 50
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
-    command:
-      - "/bin/bash"
-    profiles:
-      - donotstart
   ros2-base:
     image: das:ros2-base
     environment:
@@ -99,3 +55,6 @@ services:
       - "/bin/bash"
     profiles:
       - donotstart
+    devices:
+      - "/dev/video0:/dev/video0"
+      - "/dev/video1:/dev/video1"

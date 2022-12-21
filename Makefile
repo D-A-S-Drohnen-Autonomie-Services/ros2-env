@@ -20,3 +20,7 @@ clean:
 	rm -rf install
 	rm -rf tmp/bag
 	rm -rf log
+
+.PHONY:deps
+deps:
+	rosdep update && rosdep install --from-paths src --ignore-src -r -y
