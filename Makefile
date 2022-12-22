@@ -1,4 +1,5 @@
 cpunum = $(shell cat /proc/cpuinfo| grep "processor"| wc -l)
+SHELL := /bin/bash
 
 all: build install
 
