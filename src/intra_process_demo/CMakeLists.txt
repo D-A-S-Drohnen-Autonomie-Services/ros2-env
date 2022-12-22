@@ -51,7 +51,7 @@ target_link_libraries(image_pipeline_all_in_one
   ${sensor_msgs_TARGETS}
   opencv_core
   opencv_highgui)
-
+  
 # A single program that does edge detection.
 add_executable(edge_detector_node
   src/image_pipeline/edge_detector_node.cpp)
@@ -81,7 +81,7 @@ target_link_libraries(dense_optical_flow_2_node
   opencv_core
   opencv_highgui
   opencv_video)
-
+  
 # A single program with one of each of the image pipeline demo nodes, but two image views.
 add_executable(image_pipeline_with_two_image_view
   src/image_pipeline/image_pipeline_with_two_image_view.cpp)
@@ -138,13 +138,11 @@ install(TARGETS
 
 install(DIRECTORY include/ DESTINATION include/${PROJECT_NAME})
 
-
 # Install launch files.
 install(DIRECTORY
         launch
         DESTINATION share/${PROJECT_NAME}/
         )
-
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
