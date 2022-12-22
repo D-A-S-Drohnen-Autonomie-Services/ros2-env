@@ -1,4 +1,5 @@
 cpunum = $(shell cat /proc/cpuinfo| grep "processor"| wc -l)
+SHELL := /bin/bash
 
 all: build install
 
@@ -12,7 +13,7 @@ test:
 
 .PHONY:install
 install:
-	. /install/setup.bash
+	source install/setup.bash
 
 .PHONY:clean
 clean:
