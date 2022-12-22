@@ -12,7 +12,7 @@ test:
 
 .PHONY:install
 install:
-	. /install/setup.bash
+	source install/setup.bash
 
 .PHONY:clean
 clean:

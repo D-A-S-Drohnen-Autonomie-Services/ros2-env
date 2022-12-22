@@ -18,7 +18,7 @@ find_package(rmw REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 
-find_package(OpenCV REQUIRED COMPONENTS core highgui imgproc videoio)
+find_package(OpenCV REQUIRED COMPONENTS core highgui imgproc videoio video)
 
 include_directories(include)
 # TODO(sloretz) stop exporting old-style CMake variables in the future
@@ -51,6 +51,36 @@ target_link_libraries(image_pipeline_all_in_one
   ${sensor_msgs_TARGETS}
   opencv_core
   opencv_highgui)
+
+# A single program that does edge detection.
+add_executable(edge_detector_node
+  src/image_pipeline/edge_detector_node.cpp)
+target_link_libraries(edge_detector_node
+  rclcpp::rclcpp
+  ${builtin_interfaces_TARGETS}
+  ${sensor_msgs_TARGETS}
+  opencv_core
+  opencv_highgui)
+# A single program that does dense optical flow.
+add_executable(dense_optical_flow_node
+  src/image_pipeline/dense_optical_flow_node.cpp)
+target_link_libraries(dense_optical_flow_node
+  rclcpp::rclcpp
+  ${builtin_interfaces_TARGETS}
+  ${sensor_msgs_TARGETS}
+  opencv_core
+  opencv_highgui
+  opencv_video)
+# A single program that does dense optical flow.
+add_executable(dense_optical_flow_2_node
+  src/image_pipeline/dense_optical_flow_2_node.cpp)
+target_link_libraries(dense_optical_flow_2_node
+  rclcpp::rclcpp
+  ${builtin_interfaces_TARGETS}
+  ${sensor_msgs_TARGETS}
+  opencv_core
+  opencv_highgui
+  opencv_video)
 
 # A single program with one of each of the image pipeline demo nodes, but two image views.
 add_executable(image_pipeline_with_two_image_view
@@ -101,9 +131,19 @@ install(TARGETS
   camera_node
   watermark_node
   image_view_node
+  edge_detector_node
+  dense_optical_flow_node
+  dense_optical_flow_2_node
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY include/ DESTINATION include/${PROJECT_NAME})
+
+
+# Install launch files.
+install(DIRECTORY
+        launch
+        DESTINATION share/${PROJECT_NAME}/
+        )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
