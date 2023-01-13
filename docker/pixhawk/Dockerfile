@@ -53,8 +53,8 @@ RUN python3 -m pip install argparse argcomplete coverage cerberus empy jinja2 kc
 		pyyaml requests serial six toml psutil pyulog wheel jsonschema pynacl
 
 # manual ccache setup
-RUN ln -s /usr/bin/ccache /usr/lib/ccache/cc \
-	&& ln -s /usr/bin/ccache /usr/lib/ccache/c++
+#RUN ln -s /usr/bin/ccache /usr/lib/ccache/cc \
+#	&& ln -s /usr/bin/ccache /usr/lib/ccache/c++
 
 # astyle v3.1
 RUN wget -q https://downloads.sourceforge.net/project/astyle/astyle/astyle%203.1/astyle_3.1_linux.tar.gz -O /tmp/astyle.tar.gz \
