@@ -3,20 +3,20 @@ jobs:
   build-base-image:
     uses: ./.github/workflows/build-docker.yml
     with:
-      path: docker/base-image
+      path: ./docker/base-image/Dockerfile
     secrets: inherit
   build-application-image:
     uses: ./.github/workflows/build-docker.yml
     with:
-      path: docker/built-application
+      path: ./docker/built-application/Dockerfile
     secrets: inherit
   build-pixhawk-image:
     uses: ./.github/workflows/build-docker.yml
     with:
-      path: docker/pixhawk
+      path: ./docker/pixhawk/Dockerfile
     secrets: inherit
   build-rqt-image:
     uses: ./.github/workflows/build-docker.yml
     with:
-      path: docker/rqt
+      path: ./docker/rqt/Dockerfile
     secrets: inherit
