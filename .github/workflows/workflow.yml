@@ -1,3 +1,4 @@
+on: [push]
 jobs:
   build-base-image:
     uses: ./.github/workflows/build-docker.yml
