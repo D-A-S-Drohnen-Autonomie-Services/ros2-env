@@ -4,23 +4,15 @@ jobs:
     uses: ./.github/workflows/build-docker.yml
     with:
       path: docker/base-image
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
   build-application-image:
     uses: ./.github/workflows/build-docker.yml
     with:
       path: docker/built-application
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
   build-pixhawk-image:
     uses: ./.github/workflows/build-docker.yml
     with:
       path: docker/pixhawk
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
   build-rqt-image:
     uses: ./.github/workflows/build-docker.yml
     with:
       path: docker/rqt
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
