@@ -1,17 +1,17 @@
 jobs:
   build-base-image:
-    uses: ./.github/workflows/build-docker.yml@main
+    uses: ./.github/workflows/build-docker.yml
     with:
       path: docker/base-image
   build-application-image:
-    uses: ./.github/workflows/build-docker.yml@main
+    uses: ./.github/workflows/build-docker.yml
     with:
       path: docker/built-application
   build-pixhawk-image:
-    uses: ./.github/workflows/build-docker.yml@main
+    uses: ./.github/workflows/build-docker.yml
     with:
       path: docker/pixhawk
   build-rqt-image:
-    uses: ./.github/workflows/build-docker.yml@main
+    uses: ./.github/workflows/build-docker.yml
     with:
       path: docker/rqt
