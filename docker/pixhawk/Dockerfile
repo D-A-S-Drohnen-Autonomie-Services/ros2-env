@@ -1,5 +1,7 @@
 FROM dastech/ros2-humble:latest
 
+# Directly taken from https://github.com/PX4/PX4-containers
+
 RUN apt-get update && apt-get -y --quiet --no-install-recommends install \
 		bzip2 \
 		ca-certificates \
@@ -41,3 +43,46 @@ RUN apt-get update && apt-get -y --quiet --no-install-recommends install \
 	&& apt-get -y autoremove \
 	&& apt-get clean autoclean \
 	&& rm -rf /var/lib/apt/lists/{apt,dpkg,cache,log} /tmp/* /var/tmp/*
+
+# Install Python 3 pip build dependencies first.
+RUN python3 -m pip install --upgrade pip wheel setuptools
+
+# Python 3 dependencies installed by pip
+RUN python3 -m pip install argparse argcomplete coverage cerberus empy jinja2 kconfiglib \
+		matplotlib==3.0.* numpy nunavut>=1.1.0 packaging pkgconfig pyros-genmsg pyulog \
+		pyyaml requests serial six toml psutil pyulog wheel jsonschema pynacl
+
+# manual ccache setup
+RUN ln -s /usr/bin/ccache /usr/lib/ccache/cc \
+	&& ln -s /usr/bin/ccache /usr/lib/ccache/c++
+
+# astyle v3.1
+RUN wget -q https://downloads.sourceforge.net/project/astyle/astyle/astyle%203.1/astyle_3.1_linux.tar.gz -O /tmp/astyle.tar.gz \
+	&& cd /tmp && tar zxf astyle.tar.gz && cd astyle/src \
+	&& make -f ../build/gcc/Makefile -j$(nproc) && cp bin/astyle /usr/local/bin \
+	&& rm -rf /tmp/*
+
+# create user with id 1001 (jenkins docker workflow default)
+RUN useradd --shell /bin/bash -u 1001 -c "" -m user && usermod -a -G dialout user
+
+# setup virtual X server
+RUN mkdir /tmp/.X11-unix && \
+	chmod 1777 /tmp/.X11-unix && \
+	chown -R root:root /tmp/.X11-unix
+ENV DISPLAY :99
+
+ENV CCACHE_UMASK=000
+ENV FASTRTPSGEN_DIR="/usr/local/bin/"
+ENV PATH="/usr/lib/ccache:$PATH"
+ENV TERM=xterm
+ENV TZ=UTC
+
+# SITL UDP PORTS
+EXPOSE 14556/udp
+EXPOSE 14557/udp
+
+# create and start as LOCAL_USER_ID
+COPY scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+CMD ["/bin/bash"]

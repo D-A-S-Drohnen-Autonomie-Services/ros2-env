@@ -18,6 +18,9 @@ on:
       docker-repo:
         required: true
         type: string
+      context:
+        required: true
+        type: string
     secrets:
       DOCKERHUB_USERNAME:
         required: true
@@ -54,7 +57,7 @@ jobs:
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           file: ${{ inputs.path }}
-          context: .
+          context: ${{ inputs.context }}
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.docker-repo }}:latest
 #          tags: ${{ steps.meta.outputs.tags }}
