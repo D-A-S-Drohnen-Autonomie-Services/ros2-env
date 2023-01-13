@@ -56,6 +56,6 @@ jobs:
           file: ${{ inputs.path }}
           context: .
           push: true
-          tags: latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.docker-repo }}:latest
 #          tags: ${{ steps.meta.outputs.tags }}
 #          labels: ${{ steps.meta.outputs.labels }}
