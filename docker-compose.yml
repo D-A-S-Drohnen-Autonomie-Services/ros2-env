@@ -55,6 +55,3 @@ services:
       - "/bin/bash"
     profiles:
       - donotstart
-    devices:
-      - "/dev/video0:/dev/video0"
-      - "/dev/video1:/dev/video1"

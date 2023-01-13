@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     nano vim \
     && rm -rf /var/lib/apt/lists/* \
 RUN echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
-RUN echo "export _colcon_cd_root=/opt/ros/humble/" >> ~/.bashrc \
+RUN echo "export _colcon_cd_root=/opt/ros/humble/" >> ~/.bashrc
 RUN echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/.bashrc
 
 RUN mkdir /home/root

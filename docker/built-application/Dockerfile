@@ -1,4 +1,4 @@
-FROM petdog/das:latest-base
+FROM dastech/ros2-humble-base:latest
 
 COPY . .
 RUN rosdep update
