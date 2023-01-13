@@ -1,0 +1,5 @@
+jobs:
+  call-workflow-passing-data:
+    uses: .github/workflows/build-docker.yml@main
+    with:
+      path: docker/base-image
