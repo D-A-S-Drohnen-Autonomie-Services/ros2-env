@@ -4,22 +4,26 @@ jobs:
     uses: ./.github/workflows/build-docker.yml
     with:
       path: ./docker/base-image/Dockerfile
+      docker-repo: ros2-humble-base
     secrets: inherit
   build-application-image:
     uses: ./.github/workflows/build-docker.yml
     with:
       path: ./docker/built-application/Dockerfile
+      docker-repo: ros2-humble
     secrets: inherit
     needs: build-base-image
   build-pixhawk-image:
     uses: ./.github/workflows/build-docker.yml
     with:
       path: ./docker/pixhawk/Dockerfile
+      docker-repo: ros2-humble-pixhawk
     secrets: inherit
     needs: build-application-image
   build-rqt-image:
     uses: ./.github/workflows/build-docker.yml
     with:
       path: ./docker/rqt/Dockerfile
+      docker-repo: ros2-humble-rqt
     secrets: inherit
     needs: build-base-image

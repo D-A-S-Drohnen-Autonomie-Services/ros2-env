@@ -15,6 +15,9 @@ on:
       path:
         required: true
         type: string
+      docker-repo:
+        required: true
+        type: string
     secrets:
       DOCKERHUB_USERNAME:
         required: true
@@ -45,7 +48,7 @@ jobs:
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: |
-            ${{ inputs.docker-username }}/${{ inputs.docker-repo }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.docker-repo }}
             ghcr.io/${{ github.repository }}
       - name: Build and push Docker images
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
