@@ -10,13 +10,16 @@ jobs:
     with:
       path: ./docker/built-application/Dockerfile
     secrets: inherit
+    needs: build-base-image
   build-pixhawk-image:
     uses: ./.github/workflows/build-docker.yml
     with:
       path: ./docker/pixhawk/Dockerfile
     secrets: inherit
+    needs: build-application-image
   build-rqt-image:
     uses: ./.github/workflows/build-docker.yml
     with:
       path: ./docker/rqt/Dockerfile
     secrets: inherit
+    needs: build-base-image
