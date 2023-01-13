@@ -33,8 +33,6 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-        run: |
-          cd ${{ inputs.path }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
