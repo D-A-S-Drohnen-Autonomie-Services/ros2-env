@@ -80,3 +80,6 @@ ENV TZ=UTC
 # SITL UDP PORTS
 EXPOSE 14556/udp
 EXPOSE 14557/udp
+
+RUN git clone https://github.com/PX4/PX4-containers /home/root/px4
+WORKDIR /home/root/px4
